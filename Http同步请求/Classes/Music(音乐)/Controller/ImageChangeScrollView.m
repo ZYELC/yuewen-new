@@ -3,7 +3,7 @@
 //  Http同步请求
 //
 //  Created by qianfeng on 14/10/6.
-//  Copyright (c) 2014年 qianfeng. All rights reserved.
+//  Copyright © 2014年 zhangying. All rights reserved.
 //
 
 #import "ImageChangeScrollView.h"

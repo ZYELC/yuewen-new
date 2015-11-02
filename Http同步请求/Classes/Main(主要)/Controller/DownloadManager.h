@@ -3,7 +3,7 @@
 //  EasyCookingTest
 //
 //  Created by fengweiru on 15/6/18.
-//  Copyright (c) 2014年 qianfeng. All rights reserved.
+//  Copyright © 2014年 zhangying. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

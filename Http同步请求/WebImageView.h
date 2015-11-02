@@ -3,7 +3,7 @@
 //  0910WebImageView
 //
 //  Created by qianfeng on 14/3/10.
-//  Copyright (c) 2014年 qianfeng. All rights reserved.
+//  Copyright © 2014年 zhangying. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
