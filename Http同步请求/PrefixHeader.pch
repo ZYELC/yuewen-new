@@ -1,0 +1,285 @@
+//
+//  PrefixHeader.pch
+//  Http同步请求
+//
+//  Created by qianfeng on 14/3/14.
+//  Copyright (c) 2014年 qianfeng. All rights reserved.
+//
+
+#ifndef Http_____PrefixHeader_pch
+#define Http_____PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#define KHIGHT ([UIScreen mainScreen].bounds.size.height)
+#define KWIDTH ([UIScreen mainScreen].bounds.size.width)
+
+#import "NEWTool.h"
+#import "MJRefresh.h"
+#import "UIImageView+WebCache.h"
+#import "ZYTool.h"
+#import "UIView+Extension.h"
+#import "MBProgressHUD+MJ.h"
+#import "AppDelegate.h"
+#import "UIView+PSBTransitionAnimation.h"
+#endif
+//方正黑体
+#define ZYFONT(F) [UIFont fontWithName:@"FZHTJW--GB1-0" size:F]
+// 图片
+#define ZYImage(name) [UIImage imageNamed:name]
+// 渲染保持原颜色信息图片
+#define ZYOriginalImage(name) [ZYImage(name) imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+
+// 字体
+#define ZYFont(size) [UIFont systemFontOfSize:size]
+
+// JSON解析
+#define ZYJsonParserWithData(data) [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil]
+// 2.获得RGB颜色
+#define ZYColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+
+// 4.是否为4inch
+#define fourInch ([UIScreen mainScreen].bounds.size.height == 568)
+// 日志输出 由于NSLog操作是非常耗时的，而当程序发布后，也不需要输出操作.
+// 程序的调试阶段DEBUG宏会一直存在.所以调试阶段会输出,发布后没有输出.
+#ifdef DEBUG
+#define ZYLog(...) NSLog(__VA_ARGS__)
+#else
+#define ZYLog(...)
+#endif
+
+
+#ifndef OBJC_ARC_ENABLED
+#ifdef __has_feature
+#define OBJC_ARC_ENABLED __has_feature(objc_arc)
+#else
+#define OBJC_ARC_ENABLED 0
+#endif
+#endif
+//-------------------打印日志-------------------------
+//DEBUG  模式下打印日志,当前行
+#ifdef DEBUG
+#   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#   define DLog(...)
+#endif
+
+
+//重写NSLog,Debug模式下打印日志和当前行数
+//#if DEBUG
+//#define NSLog(FORMAT, ...) fprintf(stderr,"\nfunction:%s line:%d content:%s\n", __FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+//#else
+//#define NSLog(FORMAT, ...) nil
+//#endif
+
+//DEBUG  模式下打印日志,当前行 并弹出一个警告
+#ifdef DEBUG
+#   define ULog(fmt, ...)  { UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%s\n [Line %d] ", __PRETTY_FUNCTION__, __LINE__] message:[NSString stringWithFormat:fmt, ##__VA_ARGS__]  delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil]; [alert show]; }
+#else
+#   define ULog(...)
+#endif
+
+
+#define ITTDEBUG
+#define ITTLOGLEVEL_INFO     10
+#define ITTLOGLEVEL_WARNING  3
+#define ITTLOGLEVEL_ERROR    1
+
+#ifndef ITTMAXLOGLEVEL
+
+#ifdef DEBUG
+#define ITTMAXLOGLEVEL ITTLOGLEVEL_INFO
+#else
+#define ITTMAXLOGLEVEL ITTLOGLEVEL_ERROR
+#endif
+
+#endif
+
+// The general purpose logger. This ignores logging levels.
+#ifdef ITTDEBUG
+#define ITTDPRINT(xx, ...)  NSLog(@"%s(%d): " xx, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+#define ITTDPRINT(xx, ...)  ((void)0)
+#endif
+
+// Prints the current method's name.
+#define ITTDPRINTMETHODNAME() ITTDPRINT(@"%s", __PRETTY_FUNCTION__)
+
+// Log-level based logging macros.
+#if ITTLOGLEVEL_ERROR <= ITTMAXLOGLEVEL
+#define ITTDERROR(xx, ...)  ITTDPRINT(xx, ##__VA_ARGS__)
+#else
+#define ITTDERROR(xx, ...)  ((void)0)
+#endif
+
+#if ITTLOGLEVEL_WARNING <= ITTMAXLOGLEVEL
+#define ITTDWARNING(xx, ...)  ITTDPRINT(xx, ##__VA_ARGS__)
+#else
+#define ITTDWARNING(xx, ...)  ((void)0)
+#endif
+
+#if ITTLOGLEVEL_INFO <= ITTMAXLOGLEVEL
+#define ITTDINFO(xx, ...)  ITTDPRINT(xx, ##__VA_ARGS__)
+#else
+#define ITTDINFO(xx, ...)  ((void)0)
+#endif
+
+#ifdef ITTDEBUG
+#define ITTDCONDITIONLOG(condition, xx, ...) { if ((condition)) { \
+ITTDPRINT(xx, ##__VA_ARGS__); \
+} \
+} ((void)0)
+#else
+#define ITTDCONDITIONLOG(condition, xx, ...) ((void)0)
+#endif
+
+#define ITTAssert(condition, ...)                                       \
+do {                                                                      \
+if (!(condition)) {                                                     \
+[[NSAssertionHandler currentHandler]                                  \
+handleFailureInFunction:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] \
+file:[NSString stringWithUTF8String:__FILE__]  \
+lineNumber:__LINE__                                  \
+description:__VA_ARGS__];                             \
+}                                                                       \
+} while(0)
+
+//---------------------打印日志--------------------------
+
+
+//----------------------系统----------------------------
+
+//获取系统版本
+#define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
+#define CurrentSystemVersion [[UIDevice currentDevice] systemVersion]
+
+//获取当前语言
+#define CurrentLanguage ([[NSLocale preferredLanguages] objectAtIndex:0])
+
+//判断是否 Retina屏、设备是否%fhone 5、是否是iPad
+#define isRetina ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
+#define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+#define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+
+
+//判断是真机还是模拟器
+#if TARGET_OS_IPHONE
+//iPhone Device
+#endif
+
+#if TARGET_IPHONE_SIMULATOR
+//iPhone Simulator
+#endif
+
+//检查系统版本
+#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+
+
+//----------------------系统----------------------------
+
+
+//----------------------内存----------------------------
+
+//使用ARC和不使用ARC
+#if __has_feature(objc_arc)
+//compiling with ARC
+#else
+// compiling without ARC
+#endif
+
+#pragma mark - common functions
+#define RELEASE_SAFELY(__POINTER) { [__POINTER release]; __POINTER = nil; }
+
+//释放一个对象
+#define SAFE_DELETE(P) if(P) { [P release], P = nil; }
+
+#define SAFE_RELEASE(x) [x release];x=nil
+
+
+
+//----------------------内存----------------------------
+
+/**
+ *  咨询
+ */
+#define NEWFIRSTDSelect @"http://interfacev5.vivame.cn/x1-interface-v5/json/newdatalist.json?platform=iOS&installversion=5.6.0.1&channelno=WDJTA2320480100&mid=8c4bbef0e18cb39648129919639311e7&uid=9007775&sid=cefaf5c3-27e6-4c3f-9d92-e77a27438139&type=-1&id=-4&category=-1&ot=0&nt=0"
+
+//#define NEWFIRSTDSelect @"http://interfacev5.vivame.cn/x1-interface-v5/json/newdatalist.json?uid=9007775&sid=cefaf5c3-27e6-4c3f-9d92-e77a27438139&type=-1&id=-4&category=-1&ot=0&nt=0"
+//时事
+
+#define  NEWCurrent  @"http://interfacev5.vivame.cn/x1-interface-v5/json/newdatalist.json?type=1&id=-1&category=1"  //1441977121000
+//娱乐
+#define NEWAmuse  @"http://interfacev5.vivame.cn/x1-interface-v5/json/newdatalist.json?type=1&id=3&category=1"
+//精读
+#define NEWIRead  @"http://interfacev5.vivame.cn/x1-interface-v5/json/newdatalist.json?type=1&id=31&category=1"
+//美女
+#define NEWGilr @"http://interfacev5.vivame.cn/x1-interface-v5/json/newdatalist.json?type=1&id=13&category=1"
+
+//历史
+//GET
+#define NEWHistory @"http://interfacev5.vivame.cn/x1-interface-v5/json/newdatalist.json?type=1&id=45&category=1"
+//生活
+//GET
+#define NEWLife @"http://interfacev5.vivame.cn/x1-interface-v5/json/newdatalist.json?type=1&id=7&category=1"
+//军事
+//GET
+#define NEWArmy @"http://interfacev5.vivame.cn/x1-interface-v5/json/newdatalist.json?type=1&id=11&category=1"
+//数码
+//GET
+#define NEWDigital @"http://interfacev5.vivame.cn/x1-interface-v5/json/newdatalist.json?type=1&id=12&category=1"
+//汽车
+//GET
+#define NEWCar @"http://interfacev5.vivame.cn/x1-interface-v5/json/newdatalist.json?type=1&id=6&category=1"
+//星座
+//GET
+#define NEWStar @"http://interfacev5.vivame.cn/x1-interface-v5/json/newdatalist.json?type=1&id=10&category=1"
+//热读
+//GET
+#define NEWHotRead @"http://interfacev5.vivame.cn/x1-interface-v5/json/newdatalist.json?type=1&id=-5&category=1"
+//时尚
+//GET
+#define NEWFashion @"http://interfacev5.vivame.cn/x1-interface-v5/json/newdatalist.json?type=1&id=4&category=1"
+
+//更多
+//GET
+#define NEWMore @"http://interfacev5.vivame.cn/x1-interface-v5/json/searchad.json?platform=android&installversion=5.6.0.1&channelno=WDJTA2320480100&mid=8c4bbef0e18cb39648129919639311e7&uid=9007775&sid=cefaf5c3-27e6-4c3f-9d92-e77a27438139"
+//GET
+#define NEWMore2 @"http://interfacev5.vivame.cn/x1-interface-v5/json/discovery.json?platform=android&installversion=5.6.0.1&channelno=WDJTA2320480100&mid=8c4bbef0e18cb39648129919639311e7&uid=9007775&sid=cefaf5c3-27e6-4c3f-9d92-e77a27438139"
+
+//杂志
+//获取订阅信息
+//GET
+#define NEWMagzine @"http://interfacev5.vivame.cn/x1-interface-v5/json/usersubscribe.json?platform=android&installversion=5.6.0.1&channelno=WDJTA2320480100&mid=8c4bbef0e18cb39648129919639311e7&uid=9007775&sid=cefaf5c3-27e6-4c3f-9d92-e77a27438139"
+
+//获取feed数据表
+//GET
+#define NEWFeed @"http://interfacev5.vivame.cn/x1-interface-v5/json/newdatalist.json?platform=android&installversion=5.6.0.1&channelno=WDJTA2320480100&mid=8c4bbef0e18cb39648129919639311e7&uid=9007775&sid=cefaf5c3-27e6-4c3f-9d92-e77a27438139&type=1&id=-2&category=1&ot=0&nt=0"
+//获取品牌数据
+//GET
+#define NEWBrand @"http://interfacev5.vivame.cn/x1-interface-v5/json/brand.json?platform=android&installversion=5.6.0.1&channelno=WDJTA2320480100&mid=8c4bbef0e18cb39648129919639311e7&uid=9007775&sid=cefaf5c3-27e6-4c3f-9d92-e77a27438139&resolution=1280*720&id=338"
+
+//获取品牌杂志列表
+//GET
+#define NEWBrandMagzine @"http://interfacev5.vivame.cn/x1-interface-v5/json/maglist.json?platform=android&installversion=5.6.0.1&channelno=WDJTA2320480100&mid=8c4bbef0e18cb39648129919639311e7&uid=9007775&sid=cefaf5c3-27e6-4c3f-9d92-e77a27438139&resolution=1280*720&id=338&pageindex=0&pagesize=50"
+
+
+//音乐
+//主feed数据
+//GET
+#define SDmain @"http://echosystem.kibey.com/sound/hot?android_v=77&app_channel=kibey&page=%ld&t=1443432658350&v=9"
+
+//当天热门页面
+//POST
+#define SDDayHot @"http://echosystem.kibey.com/sound/hot?android_v=77&app_channel=kibey&page=%ld&t=1443432658350&v=9"
+//频道页面
+
+#define SDChannel @"http://echosystem.kibey.com/channel/get?android_v=77&app_channel=kibey&limit=10&order=hot&page=%ld&t=1443433546792&tag=&v=9&with_sound=1"
+
+//视频
+#define MoviSelf @"http://api.miaopai.com/m/samecity.json?unique_id=e1a692aa456bed39&os=android&per=20&page=%ld&vend=miaopai&uuid=bab01717-b77c-3b6a-a6c7-976cad8b5ed2&channel=wandoujia&deviceId=e1a692aa456bed39&version=5.3.7"
+//热门视频
+#define MoviHot @"http://api.miaopai.com/m/v5_hot_channel.json?os=android&per=20&token=uDwr9cE0Kxl6KF3F~ExtN6VwyEIH1uYt&vend=miaopai&uuid=bab01717-b77c-3b6a-a6c7-976cad8b5ed2&channel=wandoujia&refresh=%ld&deviceId=e1a692aa456bed39&version=5.3.7"

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="S50922-135942.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Byp-3l-TaU">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Byp-3l-TaU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="7Ng-Tp-QvB"/>
+                <constraint firstItem="Byp-3l-TaU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="FYf-kY-cX3"/>
+                <constraint firstAttribute="trailing" secondItem="Byp-3l-TaU" secondAttribute="trailing" id="R6I-7Q-iQn"/>
+                <constraint firstAttribute="bottom" secondItem="Byp-3l-TaU" secondAttribute="bottom" id="oVr-JL-Dmu"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <point key="canvasLocation" x="547.5" y="454.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="S50922-135942.jpg" width="1080" height="1920"/>
+    </resources>
+</document>
